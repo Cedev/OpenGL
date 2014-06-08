@@ -79,20 +79,20 @@ textureInternalFormat t level =
    makeGettableStateVar $
       getTexLevelParameteriNoProxy unmarshalPixelInternalFormat t level TextureInternalFormat
 
-textureSize1D :: TextureQuery TextureTarget1D TextureSize1D
+textureSize1D :: (OneDimensionalTextureTarget t, QueryableTextureTarget t) => TextureQuery t TextureSize1D
 textureSize1D t level =
    makeGettableStateVar $
       liftM TextureSize1D
             (getTexLevelParameteriNoProxy fromIntegral t level TextureWidth)
 
-textureSize2D :: TextureQuery TextureTarget2D TextureSize2D
+textureSize2D :: (TwoDimensionalTextureTarget t, QueryableTextureTarget t) => TextureQuery t TextureSize2D
 textureSize2D t level =
    makeGettableStateVar $
       liftM2 TextureSize2D
              (getTexLevelParameteriNoProxy fromIntegral t level TextureWidth )
              (getTexLevelParameteriNoProxy fromIntegral t level TextureHeight)
 
-textureSize3D :: TextureQuery TextureTarget3D TextureSize3D
+textureSize3D :: (ThreeDimensionalTextureTarget t, QueryableTextureTarget t) => TextureQuery t TextureSize3D
 textureSize3D t level =
    makeGettableStateVar $
       liftM3 TextureSize3D
